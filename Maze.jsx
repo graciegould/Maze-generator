@@ -1,9 +1,8 @@
 import React, { useRef, useEffect } from "react";
-
 const Maze = ({ 
     width = window.screen.width,
     height = window.screen.height,
-    cellSize = 20,
+    cellSize = 10,
     backgroundColor = "black",
     strokeColor = "white" 
 }) => {
