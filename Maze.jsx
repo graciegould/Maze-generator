@@ -5,7 +5,8 @@ const Maze = ({
     cellSize = 10,
     backgroundColor = "black",
     strokeColor = "white",
-    strokeWeight = 2
+    strokeWeight = 2,
+    speed = 1
 }) => {
     const canvasRef = useRef(null);
     const animationFrameIdRef = useRef(null); 
@@ -44,13 +45,17 @@ const Maze = ({
         };
 
         const animateMaze = () => {
-            const nextCell = getUnvisitedNeighbor(currentCell);
-            if (nextCell) {
-                drawLine(currentCell, nextCell);
-                stack.push(currentCell);
-                currentCell = nextCell;
-            } else if (stack.length > 0) {
-                currentCell = stack.pop();
+            for (let i = 0; i < speed; i++) {
+                const nextCell = getUnvisitedNeighbor(currentCell);
+                if (nextCell) {
+                    drawLine(currentCell, nextCell);
+                    stack.push(currentCell);
+                    currentCell = nextCell;
+                } else if (stack.length > 0) {
+                    currentCell = stack.pop();
+                } else {
+                    break;
+                }
             }
 
             if (stack.length > 0 || getUnvisitedNeighbor(currentCell)) {
@@ -88,7 +93,7 @@ const Maze = ({
                 clearTimeout(restartTimeoutRef.current);
             }
         };
-    }, [width, height, cellSize, strokeColor, strokeWeight, backgroundColor]);
+    }, [width, height, cellSize, strokeColor, strokeWeight, speed, backgroundColor]);
 
     return (
         <canvas
