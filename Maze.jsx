@@ -1,10 +1,11 @@
-import React, { useRef, useEffect } from "react";
+import { useRef, useEffect } from "react";
 const Maze = ({ 
     width = window.screen.width,
     height = window.screen.height,
     cellSize = 10,
     backgroundColor = "black",
-    strokeColor = "white" 
+    strokeColor = "white",
+    strokeWeight = 2
 }) => {
     const canvasRef = useRef(null);
     const animationFrameIdRef = useRef(null); 
@@ -26,6 +27,7 @@ const Maze = ({
             context.moveTo(from.x * cellSize + cellSize / 2, from.y * cellSize + cellSize / 2);
             context.lineTo(to.x * cellSize + cellSize / 2, to.y * cellSize + cellSize / 2);
             context.strokeStyle = strokeColor;
+            context.lineWidth = strokeWeight;
             context.stroke();
             grid[to.x][to.y] = true;
         };
@@ -86,7 +88,7 @@ const Maze = ({
                 clearTimeout(restartTimeoutRef.current);
             }
         };
-    }, [width, height, cellSize, strokeColor, backgroundColor]);
+    }, [width, height, cellSize, strokeColor, strokeWeight, backgroundColor]);
 
     return (
         <canvas
